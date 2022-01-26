@@ -18,9 +18,16 @@ void draw() {
      
 }
 
-void mouseDragged(){
-  if(mouseY <= 600){
-    playerYCoord = mouseY;
+//void mouseDragged(){
+//  if(mouseY <= 600){
+//    playerYCoord = mouseY;
+//  }
+  
+void mousePressed() {
+  if (playerYCoord <1000) {
+    playerYCoord++;
   }
+  
+}
  
 }
