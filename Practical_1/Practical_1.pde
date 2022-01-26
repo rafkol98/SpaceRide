@@ -34,33 +34,34 @@ void draw() {
       playerYCoord = playerYCoord - sizeSpeed; // increase player's speed.
       
      } else if (playerYCoord < 640) {
-      playerYCoord++;
+      playerYCoord = playerYCoord + sizeSpeed;;
     }
      
      player = new Player(playerYCoord);  
      
-     // Calculate seconds passed.
+     generateAsteroids();
+     
+}
+
+void generateAsteroids() {
+  // Calculate seconds passed.
      int passedSeconds = (millis() - savedTime)/1000;
      println(passedSeconds);
      if (passedSeconds % 10 == 0) {
        if (generateAst) {
-         initAsteroids(0, 720, passedSeconds);
+         initAsteroids(0, 720, (int) random(passedSeconds/20, 20));
          generateAst = false;
        }
      } else {
        generateAst = true;
      }
      
-     
-    
-     
 }
-
 
 
 void mouseReleased() {
   // Reinstantiate sizeSpeed to original value.
-  sizeSpeed = 1;
+  sizeSpeed = 2;
 }
 
 
