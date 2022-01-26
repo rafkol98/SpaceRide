@@ -3,12 +3,12 @@ public class Player {
   float yPos = 0;
   color playerColor;
   
-  int playerWidth = 60;
-  int playerHeight = 60;
+  int playerWidth = 50;
+  int playerHeight = 50;
   
-  Player(float y, color pColor) {
+  Player(float y) {
     yPos = y;
-    playerColor = pColor; 
+    playerColor = color(255, 204, 0); 
     drawPlayer();
   }
   
