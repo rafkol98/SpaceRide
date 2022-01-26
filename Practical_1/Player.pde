@@ -14,7 +14,7 @@ public class Player {
   
   void drawPlayer() {
     fill(playerColor);
-    rect(xPos, yPos, myWidth, myHeight);
+    rect(xPos, yPos, playerWidth, playerHeight);
   }
   
   
