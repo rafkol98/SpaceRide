@@ -1,6 +1,8 @@
 PImage img;
 Player player;
-int playerYCoord = 100;
+float playerYCoord = 640;
+boolean up = false;
+float sizeSpeed = 1;
 
 void setup() {
     size(1280,720);
@@ -13,21 +15,27 @@ void draw() {
      img.resize(1280, 0);
      image(img,0,0);
      
-     color c = color(255, 204, 0); 
-     player = new Player(playerYCoord, c);
+   
+     println(sizeSpeed);
      
+     if (mousePressed) {
+      sizeSpeed = sizeSpeed * 1.02;
+      //speed 
+      playerYCoord = playerYCoord - sizeSpeed;
+      
+     } else if (playerYCoord < 640) {
+      playerYCoord++;
+    }
+     
+     color c = color(255, 204, 0); 
+     player = new Player(playerYCoord, c);      
 }
 
-//void mouseDragged(){
-//  if(mouseY <= 600){
-//    playerYCoord = mouseY;
-//  }
-  
-void mousePressed() {
-  if (playerYCoord <1000) {
-    playerYCoord++;
-  }
-  
+
+
+void mouseReleased() {
+  // Reinstantiate sizeSpeed to original value.
+  sizeSpeed = 1;
 }
+
  
-}

@@ -1,12 +1,12 @@
 public class Player {
-  float xPos = 40; // Fixed position on X
+  float xPos = 80; // Fixed position on X
   float yPos = 0;
   color playerColor;
   
   int playerWidth = 60;
   int playerHeight = 60;
   
-  Player(int y, color pColor) {
+  Player(float y, color pColor) {
     yPos = y;
     playerColor = pColor; 
     drawPlayer();
@@ -14,7 +14,7 @@ public class Player {
   
   void drawPlayer() {
     fill(playerColor);
-    rect(xPos, yPos, playerWidth, playerHeight);
+    ellipse(xPos, yPos, playerWidth, playerHeight);
   }
   
   
