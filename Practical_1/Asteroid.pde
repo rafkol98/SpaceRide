@@ -1,10 +1,10 @@
 class Asteroid { 
-  public int xCor;
-  public int yCor;
-  public int w;
-  public int h;
+  public float xCor;
+  public float yCor;
+  public float w;
+  public float h;
 
-  Asteroid(int xVal, int yVal, int wVal, int hVal){
+  Asteroid(float xVal, float yVal, float wVal, float hVal){
     xCor = xVal;
     yCor = yVal;
     w = wVal;
@@ -12,12 +12,12 @@ class Asteroid {
     
   } 
   
-  public void drop(float speed){
+  public void move(float speed){
     xCor -= speed;
   }
   
   public void display(){
     fill(150, 102, 20);
-    rect(xCor, yCor,w,h,5);
+    ellipse(xCor, yCor,w,h);
   }
 }
