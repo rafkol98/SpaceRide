@@ -4,11 +4,14 @@ float playerYCoord = 640;
 boolean generateAst = true;
 float sizeSpeed = 1;
 float maxSpeed = 5;
+
+int lives = 3;
 Asteroid[] asteroids;
 Ufo[] ufos;
 
 // Timer
 int savedTime;
+int passedSeconds;
 
 void setup() {
     size(1280,720);
@@ -19,13 +22,14 @@ void setup() {
 }
 
 void draw() {
+     passedSeconds = (millis() - savedTime)/1000;
+     
       // Resize image.
      img.resize(1280, 0);
      image(img,0,0);
      
      moveAsteroids();
      moveUfos();
-
      
      playerSpeed();
      
@@ -33,13 +37,20 @@ void draw() {
      
      randomAttacks();
      
+     screenElements();
 }
 
-public void playerSpeed() {
+void screenElements() {
+  textSize(40); 
+  text("Seconds: "+(int)passedSeconds, 50, 80);
+  text("Lives: "+(int) lives, 1100, 80);
+}
+
+void playerSpeed() {
   if (mousePressed && playerYCoord > 20) {
       // Increase speed if mouse is pressed for a lot of time.
       if (sizeSpeed <= maxSpeed) {
-         sizeSpeed = sizeSpeed * 1.02; // Increase speed incrementally
+         sizeSpeed = sizeSpeed * 1.08; // Increase speed incrementally
       }
       
       playerYCoord = playerYCoord - sizeSpeed; // increase player's speed.
@@ -49,33 +60,35 @@ public void playerSpeed() {
     }
 }
 
-public void randomAttacks() {
-  int passedSeconds = (millis() - savedTime)/1000;
+void mouseReleased() {
+  // Reinstantiate sizeSpeed to original value.
+  sizeSpeed = 2;
+}
 
-  // Every 10 seconds generate an attack.
+void randomAttacks() {
+  
+  // Every 600 frames generate an attack.
   if (frameCount % 600 == 0) {
-         int attackNo = (int) random(1,3);
+         int attackNo = (int) random(1,4);
         println(attackNo);
      
         switch(attackNo) {
           case 1:
-            initAsteroids((int) random(1, min(passedSeconds/5, 30))); 
+            initAsteroids((int) random(3, min(passedSeconds/7, 40))); 
             break;
           case 2:
-            initUfos((int) random(1, min(passedSeconds/5, 4)));  //TODO: make 2 or 3 different ufos.
+            initUfos((int) random(1, min(passedSeconds/7, 4)));  //TODO: make 2 or 3 different ufos.
             break;
           case 3:
-            initAsteroids((int) random(1, min(passedSeconds/5, 30))); 
+            initAsteroids((int) random(3, min(passedSeconds/7, 40))); 
             initUfos((int) random(1, min(passedSeconds/5, 4)));  //TODO: make 2 or 3 different ufos.
             break;
         }
     } 
 }
 
-
-void mouseReleased() {
-  // Reinstantiate sizeSpeed to original value.
-  sizeSpeed = 2;
+void powerUps() {
+  
 }
 
 void initUfos(int num) {
