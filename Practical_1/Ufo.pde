@@ -10,7 +10,7 @@ public class Ufo
 
   }
   
-  void walk()
+  void move()
   {
     xCor = xCor + random(-40,30);
     yCor = yCor + random(-20,20);
@@ -18,7 +18,7 @@ public class Ufo
   
   void display() {
     fill(color(180, 180, 180));
-    noStroke();
+    stroke(10);
     ellipse(xCor, yCor, 140, 60);
   }
   

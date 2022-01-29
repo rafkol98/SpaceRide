@@ -8,6 +8,7 @@ float maxSpeed = 5;
 int lives = 3;
 Asteroid[] asteroids;
 Ufo[] ufos;
+Obstacle[] obstacles;
 
 // Timer
 int savedTime;
@@ -18,6 +19,7 @@ void setup() {
     img = loadImage("bg.jpeg");
     initAsteroids(5);
     initUfos(1);
+    initObstacles(1);
     savedTime = millis();
 }
 
@@ -30,6 +32,7 @@ void draw() {
      
      moveAsteroids();
      moveUfos();
+     moveObstacles();
      
      playerSpeed();
      
@@ -62,24 +65,26 @@ void playerSpeed() {
 
 void mouseReleased() {
   // Reinstantiate sizeSpeed to original value.
-  sizeSpeed = 2;
+  sizeSpeed = 4;
 }
 
 void randomAttacks() {
   
   // Every 600 frames generate an attack.
   if (frameCount % 600 == 0) {
-         int attackNo = (int) random(1,4);
-        println(attackNo);
-     
+        int attackNo = (int) random(1,4);
+        
         switch(attackNo) {
           case 1:
+            initObstacles((int) random(1,10));
             initAsteroids((int) random(3, min(passedSeconds/7, 40))); 
             break;
           case 2:
+            initObstacles((int) random(1,10));
             initUfos((int) random(1, min(passedSeconds/7, 4)));  //TODO: make 2 or 3 different ufos.
             break;
           case 3:
+            initObstacles((int) random(1,10));
             initAsteroids((int) random(3, min(passedSeconds/7, 40))); 
             initUfos((int) random(1, min(passedSeconds/5, 4)));  //TODO: make 2 or 3 different ufos.
             break;
@@ -89,6 +94,15 @@ void randomAttacks() {
 
 void powerUps() {
   
+}
+
+void initObstacles(int num) {
+   obstacles = new Obstacle[num];
+   int obstacleType = (int) random(1,3);
+  
+  for (int i=0; i<obstacles.length; i++) {
+     obstacles[i] = new Obstacle(random(1280, 2200), random(100,300), random(400,480));
+  }
 }
 
 void initUfos(int num) {
@@ -107,10 +121,17 @@ void initAsteroids(int num){
   }
 }
 
+void moveObstacles() {
+   for(int i = 0; i < obstacles.length; i++) {
+        obstacles[i].display();
+        obstacles[i].move(random(1,10));
+      }
+}
+
 void moveUfos(){
       for(int i = 0; i < ufos.length; i++) {
         ufos[i].display();
-        ufos[i].walk();
+        ufos[i].move();
       }
 }
 

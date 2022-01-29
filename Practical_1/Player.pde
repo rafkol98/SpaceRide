@@ -14,6 +14,7 @@ public class Player {
   
   void drawPlayer() {
     fill(playerColor);
+    stroke(10);
     ellipse(xPos, yPos, playerWidth, playerHeight);
   }
   
