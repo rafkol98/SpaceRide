@@ -12,7 +12,6 @@ public class Obstacle {
     w = wVal;
     w_triangle = wVal;
     h = hVal;
-    obstacleType = (int) random(1,3);
   }
   
     public void move(float speed){
@@ -21,21 +20,9 @@ public class Obstacle {
   }
   
   void display() {
-    
-    
-    fill(180,141,146);
+    fill(0,0,0);
     stroke(10);
-    
-    //triangle(xPos, yPos, xPos, h, w, yPos);
-    
-    switch(obstacleType) {
-        case 1:
-          arc(xPos, yPos, w, h, PI, TWO_PI);
-          break;
-        case 2:
-          triangle(xPos, yPos, xPos - 100, h, w_triangle, yPos); //TODO fix this
-          break;
-    }
+    arc(xPos, yPos, w, h, PI, TWO_PI);
   }
   
   
