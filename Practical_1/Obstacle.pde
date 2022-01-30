@@ -2,7 +2,7 @@ public class Obstacle {
   float xPos = 0; // Fixed position on X
   float yPos = 662;
   
-  float w, w_triangle;
+  float w;
   float h;
   
   int obstacleType;
@@ -10,18 +10,24 @@ public class Obstacle {
   Obstacle(float x, float wVal, float hVal) {
     xPos = x;
     w = wVal;
-    w_triangle = wVal;
     h = hVal;
   }
   
-    public void move(float speed){
+    public boolean move(float speed) {
     xPos -= speed;
-    w_triangle -= 0.7;
+    //TODO: debug this!
+    boolean collision = (xPos >= (playerXCoord - w/2) && xPos <= (playerXCoord + w/2)) && (yPos >= playerYCoord && yPos <= playerYCoord + h);
+ 
+    if(collision){
+      return true;
+     }
+     
+     return false;
   }
   
   void display() {
-    fill(0,0,0);
-    stroke(10);
+    fill(20,10,10);
+    stroke(212, 0, 41);
     arc(xPos, yPos, w, h, PI, TWO_PI);
   }
   

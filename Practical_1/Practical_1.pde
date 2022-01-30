@@ -1,9 +1,15 @@
 PImage img;
+
+// Initialise player.
 Player player;
 float playerYCoord = 640;
+float playerXCoord = 80;
+
 boolean generateAst = true;
 float sizeSpeed = 1;
 float maxSpeed = 5;
+
+boolean isCollided;
 
 int lives = 3;
 Asteroid[] asteroids;
@@ -30,12 +36,11 @@ void setup() {
 void draw() {
      passedSeconds = (millis() - savedTime)/1000;
      
-     
       // Resize image.
      img.resize(1280, 0);
      image(img,0,0);
      
-    
+     player = new Player(playerYCoord);  
      
      moveAsteroids();
      moveUfos();
@@ -43,9 +48,13 @@ void draw() {
      
      playerSpeed();
      
-     player = new Player(playerYCoord);  
      
-     randomAttacks();
+     //if (!isCollided) {
+       randomAttacks();
+     //} else {
+     //  println("collided");
+     //}
+     
      
      powerUp.bounce();
       
@@ -85,26 +94,24 @@ void randomAttacks() {
         
         switch(attackNo) {
           case 1:
-            initAsteroids((int) random(3, min(passedSeconds/7, 40))); 
-            initObstacles((int) random(1,10));
+            initObstacles((int) random(1,3));
+            initAsteroids((int) random(3, min(passedSeconds/7, 40)));
             break;
           case 2:
-            initUfos((int) random(1, min(passedSeconds/7, 4)));  //TODO: make 2 or 3 different ufos.
-            initObstacles((int) random(1,10));
+            initObstacles((int) random(1,3));
+            initUfos((int) random(1, min(passedSeconds/7, 4)));  //TODO: make 2 or 3 different ufos.            
             break;
           case 3:
+            initObstacles((int) random(1,3));
             initAsteroids((int) random(3, min(passedSeconds/7, 40))); 
             initUfos((int) random(1, min(passedSeconds/5, 4)));  //TODO: make 2 or 3 different ufos.
-            initObstacles((int) random(1,5));
             break;
           case 4:
-            initObstacles((int) random(10,30));
+            initObstacles((int) random(3,5));
             break;
         }
     } 
 }
-
-
 
 void initObstacles(int num) {
    obstacles = new Obstacle[num];
@@ -133,7 +140,8 @@ void initAsteroids(int num){
 void moveObstacles() {
    for(int i = 0; i < obstacles.length; i++) {
         obstacles[i].display();
-        obstacles[i].move(random(1,10));
+        isCollided = obstacles[i].move(random(1,10));
+        println(isCollided);
       }
 }
 
