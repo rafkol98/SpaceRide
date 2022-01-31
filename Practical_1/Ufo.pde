@@ -1,25 +1,38 @@
 public class Ufo
 {
-  float xCor = 0;
-  float yCor = 0;
+  float xPos = 0;
+  float yPos = 0;
+  float w;
+  float h;
+  
+  
   
   Ufo(float x, float y)
   {
-    xCor = x;
-    yCor = y;
+    xPos = x;
+    yPos = y;
+    w = 140;
+    h = 60;
 
   }
   
-  void move()
+  boolean move()
   {
-    xCor = xCor + random(-40,30);
-    yCor = yCor + random(-20,20);
+    xPos = xPos + random(-40,30);
+    yPos = yPos + random(-20,20);
+    
+    boolean collision = (xPos >= (playerXCoord - w/2) && xPos <= (playerXCoord + w/2)) || (yPos >= playerYCoord && yPos <= playerYCoord + h);
+ 
+    if(collision){
+      return true;
+     }
+     return false;
   }
   
   void display() {
     fill(color(180, 180, 180));
     stroke(10);
-    ellipse(xCor, yCor, 140, 60);
+    ellipse(xPos, yPos, w, h);
   }
   
 }

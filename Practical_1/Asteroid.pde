@@ -1,24 +1,31 @@
 class Asteroid { 
-  float xCor;
-  float yCor;
+  float xPos;
+  float yPos;
   float w;
   float h;
 
   Asteroid(float xVal, float yVal, float wVal, float hVal){
-    xCor = xVal;
-    yCor = yVal;
+    xPos = xVal;
+    yPos = yVal;
     w = wVal;
     h = hVal;
     
   } 
   
-  public void move(float speed){
-    xCor -= speed;
+  boolean move(float speed){
+    xPos -= speed;
+    
+     boolean collision = (xPos >= (playerXCoord - w/2) && xPos <= (playerXCoord + w/2)) || (yPos >= playerYCoord && yPos <= playerYCoord + h);
+ 
+    if(collision){
+      return true;
+     }
+     return false;
   }
   
-  public void display(){
+  void display(){
     fill(150, 102, 20);
     stroke(10);
-    ellipse(xCor, yCor,w,h);
+    ellipse(xPos, yPos,w,h);
   }
 }

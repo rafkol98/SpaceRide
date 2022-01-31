@@ -50,7 +50,8 @@ void draw() {
      
      
      //if (!isCollided) {
-       randomAttacks();
+      randomAttacks();
+      println(isCollided);
      //} else {
      //  println("collided");
      //}
@@ -141,24 +142,23 @@ void moveObstacles() {
    for(int i = 0; i < obstacles.length; i++) {
         obstacles[i].display();
         isCollided = obstacles[i].move(random(1,10));
-        println(isCollided);
       }
 }
 
 void moveUfos(){
       for(int i = 0; i < ufos.length; i++) {
         ufos[i].display();
-        ufos[i].move();
+        isCollided = ufos[i].move();
       }
 }
 
 void moveAsteroids(){
       for(int i = 0; i < asteroids.length; i++){
-        if(asteroids[i].yCor > height) {
-           asteroids[i].yCor = -10;
+        if(asteroids[i].yPos > height) {
+           asteroids[i].yPos = -10;
         }
         asteroids[i].display();
-        asteroids[i].move(random(1, 10));
+        isCollided = asteroids[i].move(random(1, 10));
       }
 }
  
