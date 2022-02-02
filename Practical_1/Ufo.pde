@@ -21,7 +21,7 @@ public class Ufo
     xPos = xPos + random(-40,30);
     yPos = yPos + random(-20,20);
     
-    boolean collision = (xPos >= (playerXCoord - w/2) && xPos <= (playerXCoord + w/2)) || (yPos >= playerYCoord && yPos <= playerYCoord + h);
+    boolean collision = (xPos >= (playerXCoord - w/2) && xPos <= (playerXCoord + w/2)) && (yPos >= playerYCoord && yPos <= playerYCoord + h);
  
     if(collision){
       return true;

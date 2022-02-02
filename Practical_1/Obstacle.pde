@@ -13,10 +13,10 @@ public class Obstacle {
     h = hVal;
   }
   
-    public boolean move(float speed) {
+  public boolean move(float speed) {
     xPos -= speed;
     //TODO: debug this!
-    boolean collision = (xPos >= (playerXCoord - w/2) && xPos <= (playerXCoord + w/2)) || (yPos >= playerYCoord && yPos <= playerYCoord + h);
+    boolean collision = (xPos >= (playerXCoord - w/2) && xPos <= (playerXCoord + w/2)) && (yPos >= playerYCoord && yPos <= playerYCoord + h);
  
     if(collision){
       return true;

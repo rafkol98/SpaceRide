@@ -3,8 +3,7 @@ public class Player {
   float yPos = 0;
   color playerColor;
   
-  int playerWidth = 50;
-  int playerHeight = 50;
+  int radius = 50;
   
   Player(float y) {
     yPos = y;
@@ -15,7 +14,7 @@ public class Player {
   void drawPlayer() {
     fill(playerColor);
     stroke(10);
-    ellipse(xPos, yPos, playerWidth, playerHeight);
+    circle(xPos, yPos, radius);
   }
   
   

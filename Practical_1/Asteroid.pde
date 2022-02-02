@@ -1,21 +1,19 @@
 class Asteroid { 
   float xPos;
   float yPos;
-  float w;
-  float h;
+  
+  float radius;
 
-  Asteroid(float xVal, float yVal, float wVal, float hVal){
+  Asteroid(float xVal, float yVal, float rVal){
     xPos = xVal;
     yPos = yVal;
-    w = wVal;
-    h = hVal;
-    
+    radius= rVal;
   } 
   
   boolean move(float speed){
     xPos -= speed;
-    
-     boolean collision = (xPos >= (playerXCoord - w/2) && xPos <= (playerXCoord + w/2)) || (yPos >= playerYCoord && yPos <= playerYCoord + h);
+
+    boolean collision = dist(xPos, yPos, playerXCoord, playerYCoord) < radius + playerRadius;
  
     if(collision){
       return true;
@@ -26,6 +24,6 @@ class Asteroid {
   void display(){
     fill(150, 102, 20);
     stroke(10);
-    ellipse(xPos, yPos,w,h);
+    circle(xPos, yPos, radius);
   }
 }
