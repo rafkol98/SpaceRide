@@ -5,9 +5,9 @@ public class Player {
   
   int radius = 50;
   
-  Player(float y) {
+  Player(float y, color pColor) {
     yPos = y;
-    playerColor = color(255, 204, 0); 
+    playerColor = pColor;
     drawPlayer();
   }
   
