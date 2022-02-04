@@ -3,11 +3,12 @@ public class Player {
   float yPos = 0;
   color playerColor;
   
-  int radius = 50;
+  int radius;
   
-  Player(float y, color pColor) {
+  Player(float y, color pColor, int r) {
     yPos = y;
     playerColor = pColor;
+    radius = r;
     drawPlayer();
   }
   

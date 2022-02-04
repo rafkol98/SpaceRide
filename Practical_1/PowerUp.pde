@@ -1,19 +1,46 @@
 public class PowerUp { 
   float xPos;
   float yPos;
-  float diameter = 50;
+  float radius = 50;
+  color powerUpColor;
   float xSpeed;
   float ySpeed;
+  String powerType;
 
-  PowerUp() {
+  PowerUp(String type) {
     xPos = width / 2;
     yPos = height / 2;
     xSpeed = random(-8, 8);
     ySpeed = random(-8, 8);
+    powerType = type;
   }
 
   void bounce() {
-    ellipse(xPos, yPos, diameter, diameter);
+    if (dist(playerXCoord, playerYCoord, xPos, yPos) <  50 + radius) {
+      fill(100, 255, 100);
+      text("Got power up!", width/2, height/2);
+      holdingPowerUp = true;
+      holdingPowerType = powerType;
+    }
+    
+    
+    switch(powerType) {
+      case "ExtraLife":
+        powerUpColor = color(64, 255, 40);   
+        break;
+      case "Shrink":
+        powerUpColor = color(255, 110, 207); 
+        break;
+      case "Invincible":
+        powerUpColor = color(51, 252, 255);
+        break; 
+      default:
+        powerUpColor = color(51, 252, 255);
+        break; 
+     }
+    
+    fill(powerUpColor);
+    ellipse(xPos, yPos, radius, radius);
     xPos += xSpeed;
     yPos += ySpeed;
 
@@ -24,50 +51,8 @@ public class PowerUp {
     if (yPos < 0 || yPos >= height) {
       ySpeed = -ySpeed;
     }
+    
+     
   }
   
-  
-  
-  
- // float xPos; // Fixed position on X
- // float yPos;
- // color powerUpColor;
- // float xSpeed;
- // float ySpeed;
- // String powerType;
-  
- // PowerUp(float x, float y, String type) {
- //   xPos = x;
- //   yPos = y;
- //   powerType = type;
- // }
-  
- //void bounce() {
-     
- //   switch(powerType) {
- //     case "ExtraLife":
- //       powerUpColor = color(64, 255, 40);   
- //       break;
- //     case "Shrink":
- //       powerUpColor = color(255, 110, 207); 
- //       break;
- //     case "Invincible":
- //       powerUpColor = color(51, 252, 255);
- //       break; 
- //   }
-    
- //   println(powerType);
- //   fill(powerUpColor);
- //   ellipse(xPos, yPos, 50, 50);
- //   xPos += xSpeed;
- //   yPos += ySpeed;
-
- //   if (xPos < 0 || xPos >= width) {
- //     xSpeed = -xSpeed;
- //   }
-
- //   if (yPos < 0 || yPos >= height) {
- //     ySpeed = -ySpeed;
- //   }
- // }
 }
