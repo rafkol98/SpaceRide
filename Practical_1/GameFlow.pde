@@ -1,9 +1,13 @@
 class GameFlow {
   
   void randomAttacks() {
-  // Every 600 frames generate an attack.
+    // Every 600 frames (10 seconds) generate an attack.
     if (frameCount % 600 == 0) {
         initAsteroids((int) random(3, min(passedSeconds/7, 40)));
+    } 
+    // Every 1800 frames (40 seconds) generate a power up.
+     if (frameCount % 2400 == 0) {
+        powerUp = new PowerUp((int) random(1,4));
     } 
   }
   
@@ -35,19 +39,18 @@ class GameFlow {
   
   void handlePowerUp() {
    switch(holdingPowerType) {
-      case "ExtraLife":
-        //powerUpColor = color(64, 255, 40);   
+      case 1:
+        lives = lives +1;
         break;
-      case "Shrink":
+      case 2:
         playerRadius = 25; // shrink player.
-        powerUpActivatedSeconds = passedSeconds;
         break;
-      case "Invincible":
+      case 3:
+        invincible = true;
         //powerUpColor = color(51, 252, 255);
-        break; 
-      default:
-        break; 
+        break;  
      }
+     powerUpActivatedSeconds = passedSeconds;
      holdingPowerUp = false;
   }
 

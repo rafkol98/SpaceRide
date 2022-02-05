@@ -5,12 +5,13 @@ public class PowerUp {
   color powerUpColor;
   float xSpeed;
   float ySpeed;
-  String powerType;
+  int powerType;
 
-  PowerUp(String type) {
-    xPos = width / 2;
+  PowerUp(int type) {
+    xPos = 1580;
     yPos = height / 2;
-    xSpeed = random(-8, 8);
+    xSpeed = random(-6, -1);
+    println(xSpeed);
     ySpeed = random(-8, 8);
     powerType = type;
   }
@@ -24,16 +25,16 @@ public class PowerUp {
     }
     
     switch(powerType) {
-      case "ExtraLife":
+      // ExtraLife  = case 1.
+      case 1:
         powerUpColor = color(64, 255, 40);   
         break;
-      case "Shrink":
+      // Shrink  = case 2.
+      case 2:
         powerUpColor = color(255, 110, 207); 
         break;
-      case "Invincible":
-        powerUpColor = color(51, 252, 255);
-        break; 
-      default:
+      // Invincible  = case 3.
+      case 3:
         powerUpColor = color(51, 252, 255);
         break; 
      }
@@ -43,15 +44,11 @@ public class PowerUp {
     xPos += xSpeed;
     yPos += ySpeed;
 
-    if (xPos >= width) {
-      xSpeed = -xSpeed;
-    }
-
-    if (yPos < 0 || yPos >= height -100) {
+    // Make power up bounce on top and bottom borders.
+    if (yPos < 0 || yPos >= height - 80) {
       ySpeed = -ySpeed;
     }
     
-     
   }
   
 }

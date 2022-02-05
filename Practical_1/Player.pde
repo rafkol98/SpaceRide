@@ -18,8 +18,17 @@ public class Player {
   }
   
   void playerSpeed() {
-    if (aPressed && playerYCoord > 20) {
-      velocity.add(jump);
+    
+    // If player tries to go out of bounds throw them back in.
+    if (playerYCoord < 20) {
+      PVector negJump = new PVector(0, -0.8);
+      velocity.sub(negJump);
+    }
+    
+    if (aPressed) {
+      if (playerYCoord > 100) {
+        velocity.add(jump);
+      }
     }
       aPressed = false;
   }

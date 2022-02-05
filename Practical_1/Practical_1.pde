@@ -13,8 +13,8 @@ int playerRadius = 50;
 // Gravity
 PVector position = new PVector(playerXCoord, playerYCoord); 
 PVector velocity = new PVector(0, 0);
-PVector gravity = new PVector(0, 0.08);
-PVector jump = new PVector(0, -2);
+PVector gravity = new PVector(0, 0.09);
+PVector jump = new PVector(0, -3.2);
 
 boolean generateAst = true;
 boolean collided = false;
@@ -29,8 +29,9 @@ boolean aPressed, whistle;
 String inString;
 
 boolean holdingPowerUp = false;
-String holdingPowerType = null;
+int holdingPowerType = 0;
 int powerUpActivatedSeconds;
+boolean invincible = false;
 
 PowerUp powerUp;
 
@@ -48,7 +49,7 @@ void setup() {
 
     savedTime = millis();
    
-    powerUp = new PowerUp("Shrink");
+    powerUp = new PowerUp(1);
     
     myPort = new Serial(this, Serial.list()[5], 115200);
     println("Starting");
@@ -58,7 +59,9 @@ void draw() {
     if (lives > 0) {
       
       if (powerUpActivatedSeconds + 10 == passedSeconds) {
+        //TODO: new method.
         playerRadius = 50;
+        invincible = false;
       }
       
      passedSeconds = (millis() - savedTime)/1000;
@@ -91,9 +94,13 @@ void draw() {
 
 void screenElements() {
     textSize(40); 
-    fill(255,40,50);
+    fill(255, 204, 0);
     text("Seconds: "+(int)passedSeconds, 50, 80);
     text("Lives: "+(int) lives, 1100, 80);
+    if (powerUpActivatedSeconds + 10 < passedSeconds) {
+      fill(powerUp.powerUpColor);
+      circle(1040, 40, 50);
+    }
     if (holdingPowerUp){
       powerUpImg.resize(50, 0);
       image(powerUpImg,1040,40);
@@ -104,18 +111,16 @@ void screenElements() {
 void readData() {
     inString = myPort.readString();  // read reading sent from microbit.
     if(inString != null) {
-       
+      
       if(inString.charAt(0) == 'A')  {
         aPressed = true;
       }
       
       if(inString.charAt(0) == 'W')  {
-        println(holdingPowerUp);
         // if the player is holding a power up and its of a specified type, then handle the power up accordingly.
-        if (holdingPowerUp && holdingPowerType != null) {
+        if (holdingPowerUp && holdingPowerType != 0) {
            gf.handlePowerUp();
         }
       }
   }
-  
 }
