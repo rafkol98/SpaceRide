@@ -49,7 +49,7 @@ void setup() {
 
     savedTime = millis();
    
-    powerUp = new PowerUp(1);
+    powerUp = new PowerUp(2);
     
     myPort = new Serial(this, Serial.list()[5], 115200);
     println("Starting");
@@ -97,10 +97,7 @@ void screenElements() {
     fill(255, 204, 0);
     text("Seconds: "+(int)passedSeconds, 50, 80);
     text("Lives: "+(int) lives, 1100, 80);
-    if (powerUpActivatedSeconds + 10 < passedSeconds) {
-      fill(powerUp.powerUpColor);
-      circle(1040, 40, 50);
-    }
+    
     if (holdingPowerUp){
       powerUpImg.resize(50, 0);
       image(powerUpImg,1040,40);

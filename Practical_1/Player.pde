@@ -20,7 +20,7 @@ public class Player {
   void playerSpeed() {
     
     // If player tries to go out of bounds throw them back in.
-    if (playerYCoord < 20) {
+    if (playerYCoord < 5) {
       PVector negJump = new PVector(0, -0.8);
       velocity.sub(negJump);
     }

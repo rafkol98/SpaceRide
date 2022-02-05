@@ -21,11 +21,16 @@ class GameFlow {
 
   void moveAsteroids(){
         for(Asteroid asteroid : asteroids) {
-           if (dist(playerXCoord, playerYCoord, asteroid.xPos, asteroid.yPos) <  8 + asteroid.radius) {
+           if ((dist(playerXCoord, playerYCoord, asteroid.xPos, asteroid.yPos) <  8 + asteroid.radius) && !invincible) {
             fill(255);
             text("My circles are touching!", width/2, height/2);
             fill(255, 0, 0);
             collided = true;
+          } 
+          // if the player is touching an asteroid, but he is invinvible, show him a message!
+          else if ((dist(playerXCoord, playerYCoord, asteroid.xPos, asteroid.yPos) <  8 + asteroid.radius) && invincible) {
+            fill(0,240,20);
+            text("Invincibility saved you a life!", width/2, height/2);
           }
           
           if(asteroid.yPos > height) {
