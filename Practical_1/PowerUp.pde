@@ -16,13 +16,12 @@ public class PowerUp {
   }
 
   void bounce() {
-    if (dist(playerXCoord, playerYCoord, xPos, yPos) <  50 + radius) {
+    if (dist(playerXCoord, playerYCoord, xPos, yPos) <  20 + radius) {
       fill(100, 255, 100);
       text("Got power up!", width/2, height/2);
       holdingPowerUp = true;
       holdingPowerType = powerType;
     }
-    
     
     switch(powerType) {
       case "ExtraLife":
@@ -48,7 +47,7 @@ public class PowerUp {
       xSpeed = -xSpeed;
     }
 
-    if (yPos < 0 || yPos >= height) {
+    if (yPos < 0 || yPos >= height -100) {
       ySpeed = -ySpeed;
     }
     

@@ -10,15 +10,8 @@ class Asteroid {
     radius= rVal;
   } 
   
-  boolean move(float speed){
+  void move(float speed){
     xPos -= speed;
-
-    boolean collision = dist(xPos, yPos, playerXCoord, playerYCoord) < radius + playerRadius;
- 
-    if(collision){
-      return true;
-     }
-     return false;
   }
   
   void display(){
