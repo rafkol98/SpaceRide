@@ -56,6 +56,10 @@ void setup() {
 }
 
 void draw() {
+  println(collided);
+   
+    checkLives();
+  
     if (lives > 0) {
       
       if (powerUpActivatedSeconds + 10 == passedSeconds) {
@@ -89,6 +93,13 @@ void draw() {
      powerUp.bounce();
      
      screenElements();
+    }
+}
+
+checkLives() {
+   if (collided) {
+        collided = false;
+        lives--;
     }
 }
 

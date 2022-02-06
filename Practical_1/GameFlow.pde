@@ -3,7 +3,7 @@ class GameFlow {
   void randomAttacks() {
     // Every 600 frames (10 seconds) generate an attack.
     if (frameCount % 600 == 0) {
-        initAsteroids((int) random(3, min(passedSeconds/7, 40)));
+        initAsteroids((int) random(3, min(passedSeconds/4, 25)));
     } 
     // Every 1800 frames (40 seconds) generate a power up.
      if (frameCount % 2400 == 0) {
