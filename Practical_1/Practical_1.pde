@@ -39,6 +39,8 @@ PowerUp powerUp;
 int savedTime;
 int passedSeconds;
 
+int gameMode = 0;
+
 
 void setup() {
     size(1280,720);
@@ -56,11 +58,9 @@ void setup() {
 }
 
 void draw() {
-  println(collided);
-   
-    checkLives();
-  
     if (lives > 0) {
+    
+    if (gameMode == 0) {
       
       if (powerUpActivatedSeconds + 10 == passedSeconds) {
         //TODO: new method.
@@ -72,6 +72,7 @@ void draw() {
       // Resize image.
      bg.resize(1280, 0);
      image(bg,0,0);
+     
      readData();
      
      position.add(velocity);
@@ -94,14 +95,25 @@ void draw() {
      
      screenElements();
     }
+    
+    // lost a life.
+    if (gameMode == 1) {
+       fill(255, 40, 40);
+       text("Lost a life, Click A to continue", 10, 230);
+        rect(0, 240, width, 7);
+      
+      asteroids.removeAll(asteroids);
+      readData();
+    }
+   } else {
+     clear();
+     fill(255, 0, 0);
+     text("You Lost, Click B to play again", 10, 230);
+     rect(0, 240, width, 7);
+     readData();
+   }
 }
 
-checkLives() {
-   if (collided) {
-        collided = false;
-        lives--;
-    }
-}
 
 void screenElements() {
     textSize(40); 
@@ -122,6 +134,19 @@ void readData() {
       
       if(inString.charAt(0) == 'A')  {
         aPressed = true;
+        if (gameMode == 1) {
+          gameMode = 0;
+          lives--; // subtract a life.
+          if (lives == 0) {
+            redraw();
+          }
+        }
+      }
+      
+      if(inString.charAt(0) == 'B')  {
+        lives = 3;
+        println("MESA");
+        
       }
       
       if(inString.charAt(0) == 'W')  {

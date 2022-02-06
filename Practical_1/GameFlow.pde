@@ -25,7 +25,7 @@ class GameFlow {
             fill(255);
             text("My circles are touching!", width/2, height/2);
             fill(255, 0, 0);
-            collided = true;
+            gameMode = 1;
           } 
           // if the player is touching an asteroid, but he is invinvible, show him a message!
           else if ((dist(playerXCoord, playerYCoord, asteroid.xPos, asteroid.yPos) <  8 + asteroid.radius) && invincible) {
