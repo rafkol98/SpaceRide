@@ -15,20 +15,20 @@ class GameFlow {
     asteroids = new ArrayList<>();
    
     for(int i = 0; i < num; i++) {
-       asteroids.add(new Asteroid(random(1280, 2000), random(0, 720), random(5,60)));
+       asteroids.add(new Asteroid(random(1280, 2000), random(0, 720), random(15,60)));
     }
   }
 
   void moveAsteroids(){
         for(Asteroid asteroid : asteroids) {
-           if ((dist(playerXCoord, playerYCoord, asteroid.xPos, asteroid.yPos) <  asteroid.radius) && !invincible) {
+           if ((dist(playerXCoord, playerYCoord, asteroid.xPos, asteroid.yPos) <  (playerRadius/10) + asteroid.radius) && !invincible) {
             fill(255);
             text("My circles are touching!", width/2, height/2);
             fill(255, 0, 0);
             gameMode = 1;
           } 
           // if the player is touching an asteroid, but he is invinvible, show him a message!
-          else if ((dist(playerXCoord, playerYCoord, asteroid.xPos, asteroid.yPos) <  8 + asteroid.radius) && invincible) {
+          else if ((dist(playerXCoord, playerYCoord, asteroid.xPos, asteroid.yPos) < (playerRadius/10) + asteroid.radius) && invincible) {
             fill(0,240,20);
             text("Invincibility saved you a life!", width/2, height/2);
           }

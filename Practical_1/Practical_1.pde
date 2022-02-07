@@ -107,7 +107,7 @@ void draw() {
 
 
 void restart() {
-    
+    playerRadius = 50;
     printArray(Serial.list());
     bg = loadImage("bg.jpeg");
     powerUpImg = loadImage("power.png");
