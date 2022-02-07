@@ -152,14 +152,9 @@ void readData() {
       if(inString.charAt(0) == 'B')  {
         if (lives == 0) {
           println("Restarting game.");
+          asteroids.removeAll(asteroids);
           restart();
           lives = 3;
-          asteroids.removeAll(asteroids);
-          //holdingPowerUp = false;
-          //holdingPowerType = 0;
-          //powerUpActivatedSeconds = 0;
-
-          //lives = 3;
         }
       }
       

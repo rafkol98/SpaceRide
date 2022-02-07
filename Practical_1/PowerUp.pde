@@ -11,7 +11,6 @@ public class PowerUp {
     xPos = 1580;
     yPos = height / 2;
     xSpeed = random(-6, -1);
-    println(xSpeed);
     ySpeed = random(-8, 8);
     powerType = type;
   }
