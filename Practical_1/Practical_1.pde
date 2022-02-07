@@ -43,18 +43,9 @@ int gameMode = 0;
 
 
 void setup() {
-    size(1280,720);
-    printArray(Serial.list());
-    bg = loadImage("bg.jpeg");
-    powerUpImg = loadImage("power.png");
-    gf.initAsteroids(5);
-
-    savedTime = millis();
-   
-    powerUp = new PowerUp(2);
-    
-    myPort = new Serial(this, Serial.list()[5], 115200);
-    println("Starting");
+   size(1280,720);
+   myPort = new Serial(this, Serial.list()[5], 115200);
+   restart();
 }
 
 void draw() {
@@ -115,6 +106,21 @@ void draw() {
 }
 
 
+void restart() {
+    
+    printArray(Serial.list());
+    bg = loadImage("bg.jpeg");
+    powerUpImg = loadImage("power.png");
+    gf.initAsteroids(5);
+
+    savedTime = millis();
+   
+    powerUp = new PowerUp(2);
+  
+    println("Starting");
+}
+
+
 void screenElements() {
     textSize(40); 
     fill(255, 204, 0);
@@ -144,9 +150,17 @@ void readData() {
       }
       
       if(inString.charAt(0) == 'B')  {
-        lives = 3;
-        println("MESA");
-        
+        if (lives == 0) {
+          println("Restarting game.");
+          restart();
+          lives = 3;
+          asteroids.removeAll(asteroids);
+          //holdingPowerUp = false;
+          //holdingPowerType = 0;
+          //powerUpActivatedSeconds = 0;
+
+          //lives = 3;
+        }
       }
       
       if(inString.charAt(0) == 'W')  {

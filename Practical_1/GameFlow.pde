@@ -21,7 +21,7 @@ class GameFlow {
 
   void moveAsteroids(){
         for(Asteroid asteroid : asteroids) {
-           if ((dist(playerXCoord, playerYCoord, asteroid.xPos, asteroid.yPos) <  8 + asteroid.radius) && !invincible) {
+           if ((dist(playerXCoord, playerYCoord, asteroid.xPos, asteroid.yPos) <  asteroid.radius) && !invincible) {
             fill(255);
             text("My circles are touching!", width/2, height/2);
             fill(255, 0, 0);
