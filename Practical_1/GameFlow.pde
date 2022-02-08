@@ -5,6 +5,11 @@ class GameFlow {
     if (frameCount % 600 == 0) {
         initAsteroids((int) random(3, min(passedSeconds/4, 25)));
     } 
+    
+    if (frameCount % 800 == 0) {
+      //wormhole = new Wormhole(random(1280, 2000), random(0, 720), 20);
+    } 
+    
     // Every 1800 frames (40 seconds) generate a power up.
      if (frameCount % 2400 == 0) {
         powerUp = new PowerUp((int) random(1,4));
@@ -38,8 +43,12 @@ class GameFlow {
           }
           asteroid.move(random(1, 10));
           asteroid.display();
-        }
-        
+        }  
+  }
+  
+  void moveWormhole() {
+    wormhole.move(random(1, 10));
+    wormhole.display();
   }
   
   void handlePowerUp() {

@@ -41,6 +41,8 @@ int passedSeconds;
 
 int gameMode = 0;
 
+Wormhole wormhole;
+
 
 void setup() {
    size(1280,720);
@@ -78,6 +80,8 @@ void draw() {
      
      gf.moveAsteroids();
      
+     gf.moveWormhole();
+     
      player.playerSpeed();
 
      gf.randomAttacks();
@@ -85,16 +89,22 @@ void draw() {
      powerUp.bounce();
      
      screenElements();
-    }
-    
-    // lost a life.
-    if (gameMode == 1) {
+    } else if (gameMode == 1) {
        fill(255, 40, 40);
        text("Lost a life, Click A to continue", 10, 230);
         rect(0, 240, width, 7);
       
       asteroids.removeAll(asteroids);
       readData();
+    } else if (gameMode == 2) {
+       clear();
+       text("WORMHOLE", 10, 230);
+     
+       playerYCoord = position.y;
+       player = new Player(playerYCoord, playerRadius);  
+       
+       player.playerSpeed();
+       
     }
    } else {
      clear();
@@ -105,18 +115,17 @@ void draw() {
    }
 }
 
-
 void restart() {
     playerRadius = 50;
     printArray(Serial.list());
     bg = loadImage("bg.jpeg");
     powerUpImg = loadImage("power.png");
     gf.initAsteroids(5);
-
+    
+    wormhole = new Wormhole(random(1280, 2000), random(0, 720), 80);
+    
     savedTime = millis();
-   
     powerUp = new PowerUp(2);
-  
     println("Starting");
 }
 
