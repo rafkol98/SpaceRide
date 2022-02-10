@@ -4,6 +4,9 @@ PImage bg, powerUpImg;
 
 GameFlow gf = new GameFlow();
 
+int posX;
+int posY;
+
 // Initialise player.
 Player player;
 float playerYCoord = 640;
@@ -43,11 +46,21 @@ int gameMode = 0;
 
 Wormhole wormhole;
 
+ArrayList<Ant> antArray = new ArrayList<>();
+ArrayList<Ant> newantArray = new ArrayList<>();
+color c = color(random(255), random(255), random(255));
 
 void setup() {
+    posX = 0;
+    posY = 0;
    size(1280,720);
    myPort = new Serial(this, Serial.list()[5], 115200);
    restart();
+   
+   for(int i=0; i<3; i++) {
+     antArray.add(new Ant(random(0,1000), random(0,230), c));
+     antArray.add(new Ant(random(0,1000), random(580,720), c));
+  }
 }
 
 void draw() {
@@ -97,13 +110,29 @@ void draw() {
       asteroids.removeAll(asteroids);
       readData();
     } else if (gameMode == 2) {
-       clear();
-       text("WORMHOLE", 10, 230);
-     
-       playerYCoord = position.y;
-       player = new Player(playerYCoord, playerRadius);  
+       //clear();
+       background(30,30,30);
        
-       player.playerSpeed();
+       for (Ant ant : antArray) {
+         newantArray.add(new Ant(ant.x+2, ant.y+2,c));
+        ant.walk();
+       
+       }
+       
+       for (Ant ant : newantArray) {
+            ant.walk(); 
+       }
+
+
+       text("WORMHOLE", 10, 230);
+       
+       color ballColor = color(255, 0, 0);
+       
+       readData();
+       
+       fill(ballColor);
+       noStroke();
+       ellipse(posX, posY, 50, 50);
        
     }
    } else {
@@ -144,9 +173,11 @@ void screenElements() {
 
 
 void readData() {
+    //println("called");
     inString = myPort.readString();  // read reading sent from microbit.
+
     if(inString != null) {
-      
+          //println(inString);
       if(inString.charAt(0) == 'A')  {
         aPressed = true;
         if (gameMode == 1) {
@@ -156,22 +187,54 @@ void readData() {
             redraw();
           }
         }
-      }
-      
-      if(inString.charAt(0) == 'B')  {
+      } else if(inString.charAt(0) == 'B')  {
         if (lives == 0) {
           println("Restarting game.");
           asteroids.removeAll(asteroids);
           restart();
           lives = 3;
         }
-      }
-      
-      if(inString.charAt(0) == 'W')  {
+      } else if(inString.charAt(0) == 'W')  {
         // if the player is holding a power up and its of a specified type, then handle the power up accordingly.
         if (holdingPowerUp && holdingPowerType != 0) {
            gf.handlePowerUp();
         }
+      } else if(inString.charAt(0) =='Y')  {
+         println("mesa Y");
+         try {
+          int yStrPos = inString.indexOf("Y");
+          int sepPos = inString.indexOf(";");
+          println(yStrPos+" | "+sepPos);
+          posY = (int) map(Integer.parseInt(inString.substring(yStrPos,sepPos)), 0, 1023, 0, height);
+          println("PosY"+ posY);
+
+ 
+        } catch(Exception e) {
+          println("caught");
+        }
       }
+      
   }
 }
+
+
+//// data support from the serial port
+//void serialEvent(Serial myPort) 
+//{
+//  //// read the data until the newline n appears
+//  String inString = myPort.readStringUntil('\n');
+  
+//  if(inString!=null) {
+//      if(inString.charAt(0)=='X') {
+//        try {
+//          int sepPos = inString.indexOf(";");
+//          posX = (int) map(Integer.parseInt(inString.substring(1,sepPos)), 0, 1023, 0, width);
+          
+//        } catch(Exception e) {
+//          println("caught"+posX);
+//        }
+//      }
+      
+  
+//}
+//}
