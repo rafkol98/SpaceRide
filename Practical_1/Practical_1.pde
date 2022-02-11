@@ -174,8 +174,10 @@ void screenElements() {
 
 void readData() {
     //println("called");
-    inString = myPort.readString();  // read reading sent from microbit.
+    inString =  myPort.readStringUntil('\n');  // read reading sent from microbit.
 
+  //// read the data until the newline n appears
+  //String inString =
     if(inString != null) {
           //println(inString);
       if(inString.charAt(0) == 'A')  {
@@ -187,25 +189,32 @@ void readData() {
             redraw();
           }
         }
-      } else if(inString.charAt(0) == 'B')  {
+      } 
+      
+      if(inString.charAt(0) == 'B')  {
         if (lives == 0) {
           println("Restarting game.");
           asteroids.removeAll(asteroids);
           restart();
           lives = 3;
         }
-      } else if(inString.charAt(0) == 'W')  {
+      } 
+      
+      if(inString.charAt(0) == 'W')  {
         // if the player is holding a power up and its of a specified type, then handle the power up accordingly.
         if (holdingPowerUp && holdingPowerType != 0) {
            gf.handlePowerUp();
         }
-      } else if(inString.charAt(0) =='Y')  {
+      } 
+      
+      if(inString.charAt(0) =='Y')  {
          println("mesa Y");
          try {
           int yStrPos = inString.indexOf("Y");
           int sepPos = inString.indexOf(";");
           println(yStrPos+" | "+sepPos);
-          posY = (int) map(Integer.parseInt(inString.substring(yStrPos,sepPos)), 0, 1023, 0, height);
+          println(inString);
+          posY = (int) map(Integer.parseInt(inString.substring(1,sepPos)), 0, 1023, 0, height);
           println("PosY"+ posY);
 
  
@@ -214,27 +223,16 @@ void readData() {
         }
       }
       
+      if(inString.charAt(0)=='X') {
+        println("mesa X");
+        try {
+          int sepPos = inString.indexOf(";");
+          posX = (int) map(Integer.parseInt(inString.substring(1,sepPos)), 0, 1023, 0, width);
+         println("PosX"+ posX); 
+        } catch(Exception e) {
+          println("caught"+posX);
+        }
+      }
+      
   }
 }
-
-
-//// data support from the serial port
-//void serialEvent(Serial myPort) 
-//{
-//  //// read the data until the newline n appears
-//  String inString = myPort.readStringUntil('\n');
-  
-//  if(inString!=null) {
-//      if(inString.charAt(0)=='X') {
-//        try {
-//          int sepPos = inString.indexOf(";");
-//          posX = (int) map(Integer.parseInt(inString.substring(1,sepPos)), 0, 1023, 0, width);
-          
-//        } catch(Exception e) {
-//          println("caught"+posX);
-//        }
-//      }
-      
-  
-//}
-//}
