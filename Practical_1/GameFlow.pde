@@ -21,7 +21,7 @@ class GameFlow {
     asteroids = new ArrayList<>();
 
     for (int i = 0; i < num; i++) {
-      asteroids.add(new Asteroid(random(width+200, width*2), random(0, 850), random(15, 60)));
+      asteroids.add(new Asteroid(random(width+200, width*2), random(0, 900), random(15, 60)));
     }
   }
 
@@ -78,7 +78,7 @@ class GameFlow {
   void handleWormhole() {
     background(30, 30, 30);
 
-    color ballColor = color(255, 204, 0);
+    color ballColor = color(255, 10, 71);
 
     aliensWalk();
     
@@ -89,7 +89,7 @@ class GameFlow {
 
     fill(ballColor);
     noStroke();
-    ellipse(playerXCoordJoy, playerYCoordJoy, 50, 50);
+    circle(playerXCoordJoy, playerYCoordJoy, 50);
   }
 
   /**

@@ -1,7 +1,7 @@
 public class Player {
   float xPos = 80; // Fixed position on X
   float yPos = 0;
-  color playerColor = color(255, 204, 0); 
+  color playerColor =  color(255, 10, 71);
   
   int radius;
   

@@ -38,7 +38,7 @@ PowerUp powerUp;
 // Timer
 int savedTime;
 int passedSeconds;
-int score = 0;
+int score;
 
 int gameMode = 0;
 
@@ -46,19 +46,23 @@ int gameMode = 0;
 Wormhole wormhole;
 ArrayList<Alien> aliensArray = new ArrayList<>();
 ArrayList<Alien> newAliensArray = new ArrayList<>();
-color c = color(255, 10, 71);
+color c = color(255, 204, 0); ;
 int inWormholeSeconds;
 
 
 void setup() {
   playerXCoordJoy = 0;
   playerYCoordJoy = 0;
-    fullScreen();
+  fullScreen();
   myPort = new Serial(this, Serial.list()[5], 115200);
   initialiseGame();
+  gf.initAsteroids(5);
+  wormhole = new Wormhole(random(1280, 2000), random(0, 800), 80);
+  savedTime = millis();
+  powerUp = new PowerUp(2);
 
   // Aliens.
-  for (int i=0; i<4; i++) {
+  for (int i=0; i<8; i++) {
     aliensArray.add(new Alien(random(0, 1000), random(0, 230), c));
     aliensArray.add(new Alien(random(0, 1000), random(580, 720), c));
   }
@@ -66,13 +70,12 @@ void setup() {
 
 void draw() {
   passedSeconds = (millis() - savedTime)/1000;
-
+  println(passedSeconds);
   if (lives > 0) {
 
     if (gameMode == 0) {
 
       if (powerUpActivatedSeconds + 10 == passedSeconds) {
-        //TODO: new method.
         playerRadius = 50;
         invincible = false;
       }
@@ -111,7 +114,7 @@ void draw() {
       text("Lost a life, Click A to continue", 10, 230);
       rect(0, 240, width, 7);
 
-      asteroids.removeAll(asteroids);
+      asteroids.clear();
       readData();
     }
 
@@ -121,7 +124,7 @@ void draw() {
       gf.handleWormhole();
     }
   } else {
-    clear();
+    background(30, 30, 30);
     fill(255, 0, 0);
     text("You Lost, Click B to play again", 10, 230);
     rect(0, 240, width, 7);
@@ -130,16 +133,13 @@ void draw() {
 }
 
 void initialiseGame() {
+  gameMode = 0;
   playerRadius = 50;
   printArray(Serial.list());
-  bg = loadImage("Bg_game.jpg");
+  bg = loadImage("Bg_game_new.jpg");
   powerUpImg = loadImage("power.png");
-  gf.initAsteroids(5);
-
-  wormhole = new Wormhole(random(1280, 2000), random(0, 800), 80);
-
   savedTime = millis();
-  powerUp = new PowerUp(2);
+  score = 0;
   println("Starting");
 }
 
@@ -177,7 +177,6 @@ void readData() {
     if (inString.charAt(0) == 'B') {
       if (lives == 0) {
         println("Restarting game.");
-        asteroids.removeAll(asteroids);
         initialiseGame();
         lives = 3;
       }
