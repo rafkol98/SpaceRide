@@ -18,7 +18,6 @@ public class PowerUp {
     // if its an extrascore - wormhole, then place xPos in the middle.
     if (type == 4) {
       xPos = 100;
-      distSensitivity = 40;
     } else {
       xPos = 1580;
     }

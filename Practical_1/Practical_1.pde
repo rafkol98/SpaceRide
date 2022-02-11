@@ -9,7 +9,7 @@ int playerYCoordJoy;
 
 // Initialise player.
 Player player;
-float playerYCoord = 640;
+float playerYCoord = 800;
 float playerXCoord = 80;
 int playerRadius = 50;
 
@@ -53,7 +53,7 @@ int inWormholeSeconds;
 void setup() {
   playerXCoordJoy = 0;
   playerYCoordJoy = 0;
-  size(1280, 720);
+    fullScreen();
   myPort = new Serial(this, Serial.list()[5], 115200);
   initialiseGame();
 
@@ -78,7 +78,7 @@ void draw() {
       }
 
       // Resize image.
-      bg.resize(1280, 0);
+      bg.resize(width, height);
       image(bg, 0, 0);
 
       readData();
@@ -86,7 +86,7 @@ void draw() {
       position.add(velocity);
       velocity.add(gravity);
 
-      if (position.y > 640) {
+      if (position.y > 800) {
         velocity.y =0;
       }
 
@@ -132,11 +132,11 @@ void draw() {
 void initialiseGame() {
   playerRadius = 50;
   printArray(Serial.list());
-  bg = loadImage("bg.jpeg");
+  bg = loadImage("Bg_game.jpg");
   powerUpImg = loadImage("power.png");
   gf.initAsteroids(5);
 
-  wormhole = new Wormhole(random(1280, 2000), random(0, 720), 80);
+  wormhole = new Wormhole(random(1280, 2000), random(0, 800), 80);
 
   savedTime = millis();
   powerUp = new PowerUp(2);
