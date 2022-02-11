@@ -77,19 +77,13 @@ class GameFlow {
    **/
   void handleWormhole() {
     background(30, 30, 30);
-
-    color ballColor = color(255, 10, 71);
-
     aliensWalk();
     
     powerUp.bounce();
-    //extraScore.show();
 
     readData(); // read data from controller.
 
-    fill(ballColor);
-    noStroke();
-    circle(playerXCoordJoy, playerYCoordJoy, 50);
+    player = new Player(playerXCoordJoy, playerYCoordJoy, 50); // create a player using the x and y coordinates from the joystick.
   }
 
   /**

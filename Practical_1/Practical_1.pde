@@ -46,7 +46,8 @@ int gameMode = 0;
 Wormhole wormhole;
 ArrayList<Alien> aliensArray = new ArrayList<>();
 ArrayList<Alien> newAliensArray = new ArrayList<>();
-color c = color(255, 204, 0); ;
+color c = color(255, 204, 0);
+;
 int inWormholeSeconds;
 
 
@@ -123,6 +124,13 @@ void draw() {
       asteroids.clear();
       gf.handleWormhole();
     }
+
+    if (gameMode == 3) {
+      fill(255, 40, 40);
+      text("Game Paused! Press A to unpause", 10, 230);
+      rect(0, 240, width, 7);
+      readData();
+    }
   } else {
     background(30, 30, 30);
     fill(255, 0, 0);
@@ -133,6 +141,7 @@ void draw() {
 }
 
 void initialiseGame() {
+  clear();
   gameMode = 0;
   playerRadius = 50;
   printArray(Serial.list());
@@ -146,7 +155,7 @@ void initialiseGame() {
 
 void screenElements() {
   textSize(40);
-  fill(255, 204, 0);
+  fill(255);
   text("Score: "+(int) score, 50, 80);
   text("Lives: "+(int) lives, 1100, 80);
 
@@ -172,6 +181,10 @@ void readData() {
           redraw();
         }
       }
+      
+      if (gameMode == 3) {
+        gameMode = 0;
+      }
     }
 
     if (inString.charAt(0) == 'B') {
@@ -186,6 +199,12 @@ void readData() {
       // if the player is holding a power up and its of a specified type, then handle the power up accordingly.
       if (holdingPowerUp && holdingPowerType != 0) {
         gf.handlePowerUp();
+      }
+    }
+
+    if (inString.charAt(0) == 'L') {
+      if (gameMode != 3) {
+        gameMode = 3;
       }
     }
 

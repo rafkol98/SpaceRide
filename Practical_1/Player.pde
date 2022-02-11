@@ -11,6 +11,14 @@ public class Player {
     drawPlayer();
   }
   
+  Player(float x, float y, int r) {
+    xPos = x;
+    yPos = y;
+    radius = r;
+    drawPlayer();
+  }
+  
+  
   void drawPlayer() {
     fill(playerColor);
     stroke(10);
