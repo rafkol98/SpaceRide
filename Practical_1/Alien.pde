@@ -1,9 +1,9 @@
-public class Aliens
+public class Alien
 {
   float x = 0;
   float y = 0;
   color myColor;
-  Aliens(float x, float y, color antColor)
+  Alien(float x, float y, color antColor)
   {
     this.x = x;
     this.y = y;
@@ -15,7 +15,7 @@ public class Aliens
     x = x + random(-2,2);
     y = y + random(-2,2);
     
-   if (dist(posX, posY, x, y) <  2 +20) {
+   if (dist(playerXCoordJoy, playerYCoordJoy, x, y) <  2 +20) {
       fill(255, 0,0);
       text("My circles are touching!", width/2, height/2);
       fill(255, 0, 0);

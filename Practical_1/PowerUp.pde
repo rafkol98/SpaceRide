@@ -1,4 +1,4 @@
-public class PowerUp { 
+public class PowerUp {
   float xPos;
   float yPos;
   float radius = 50;
@@ -6,9 +6,23 @@ public class PowerUp {
   float xSpeed;
   float ySpeed;
   int powerType;
+  int distSensitivity = 20;
+
+  // Set new xPos and yPos out of the screen.
+  void setPosition() {
+    this.xPos = 15000;
+    this.yPos = 15000;
+  }
 
   PowerUp(int type) {
-    xPos = 1580;
+    // if its an extrascore - wormhole, then place xPos in the middle.
+    if (type == 4) {
+      xPos = 100;
+      distSensitivity = 40;
+    } else {
+      xPos = 1580;
+    }
+
     yPos = height / 2;
     xSpeed = random(-6, -1);
     ySpeed = random(-8, 8);
@@ -16,38 +30,53 @@ public class PowerUp {
   }
 
   void bounce() {
-    if (dist(playerXCoord, playerYCoord, xPos, yPos) <  20 + radius) {
+    // get player's x and y location. This is used to get the joystick's x and y if the user is in the wormhole.
+    float plX = (powerType == 4) ? playerXCoordJoy : playerXCoord;
+    float plY = (powerType == 4) ? playerYCoordJoy : playerYCoord;
+   
+    if (dist(plX, plY, xPos, yPos) <  distSensitivity + radius) {
       fill(100, 255, 100);
       text("Got power up!", width/2, height/2);
       holdingPowerUp = true;
       holdingPowerType = powerType;
     }
-    
+
     switch(powerType) {
       // ExtraLife  = case 1.
-      case 1:
-        powerUpColor = color(64, 255, 40);   
-        break;
+    case 1:
+      powerUpColor = color(64, 255, 40);
+      break;
       // Shrink  = case 2.
-      case 2:
-        powerUpColor = color(255, 110, 207); 
-        break;
+    case 2:
+      powerUpColor = color(255, 110, 207);
+      break;
       // Invincible  = case 3.
-      case 3:
-        powerUpColor = color(51, 252, 255);
-        break; 
-     }
-    
+    case 3:
+      powerUpColor = color(51, 252, 255);
+      break;
+    case 4:
+      // Extrascore - wormhole.
+      powerUpColor = color(127, 0, 255);
+      break;
+    }
+
     fill(powerUpColor);
     ellipse(xPos, yPos, radius, radius);
     xPos += xSpeed;
     yPos += ySpeed;
 
+    int bottomBorder = 80;
+
+    if (powerType == 4) {
+      bottomBorder = 0;
+      if (xPos < 0 || xPos > width) {
+        xSpeed *= -1;
+      }
+    }
+
     // Make power up bounce on top and bottom borders.
-    if (yPos < 0 || yPos >= height - 80) {
+    if (yPos < 0 || yPos >= height - bottomBorder) {
       ySpeed = -ySpeed;
     }
-    
   }
-  
 }

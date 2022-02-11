@@ -14,9 +14,9 @@ class Wormhole {
      if (dist(playerXCoord, playerYCoord, xPos, yPos) <  20 + radius) {
       fill(100, 255, 100);
       text("WORMHOLE!", width/4, height/4);
-      gameMode = 2;
       inWormholeSeconds = passedSeconds;
-      
+      powerUp = new PowerUp(4);
+      gameMode = 2;
     }
     
     xPos -= speed;
