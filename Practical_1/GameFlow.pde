@@ -7,7 +7,7 @@ class GameFlow {
     } 
     
     if (frameCount % 800 == 0) {
-      //wormhole = new Wormhole(random(1280, 2000), random(0, 720), 20);
+      wormhole = new Wormhole(random(1280, 2000), random(0, 720), 20);
     } 
     
     // Every 1800 frames (40 seconds) generate a power up.
@@ -67,5 +67,38 @@ class GameFlow {
      powerUpActivatedSeconds = passedSeconds;
      holdingPowerUp = false;
   }
+  
+  /**
+  Handle the wormhole.
+  **/
+  void handleWormhole() {
+       background(30,30,30);
+       
+       color ballColor = color(255, 204, 0);
+       
+       aliensWalk();
+       
+       readData(); // read data from controller.
+       
+       fill(ballColor);
+       noStroke();
+       ellipse(posX, posY, 50, 50);
+  }
 
+ /**
+  Make aliens walk through the screen.
+  **/
+  void aliensWalk() {
+    // Make aliens walk through the screen.
+    for (Aliens alien : aliensArray) {
+      newAliensArray.add(new Aliens(alien.x+2, alien.y+2,c));
+      alien.walk();
+    }
+       
+    for (Aliens alien : newAliensArray) {
+       alien.walk(); 
+    }
+
+  }
+  
 }

@@ -15,6 +15,8 @@ class Wormhole {
       fill(100, 255, 100);
       text("WORMHOLE!", width/4, height/4);
       gameMode = 2;
+      inWormholeSeconds = passedSeconds;
+      
     }
     
     xPos -= speed;

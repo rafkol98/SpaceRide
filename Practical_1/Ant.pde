@@ -1,9 +1,9 @@
-public class Ant
+public class Aliens
 {
   float x = 0;
   float y = 0;
   color myColor;
-  Ant(float x, float y, color antColor)
+  Aliens(float x, float y, color antColor)
   {
     this.x = x;
     this.y = y;
