@@ -38,6 +38,7 @@ PowerUp powerUp;
 // Timer
 int savedTime;
 int passedSeconds;
+int score = 0;
 
 int gameMode = 0;
 
@@ -47,7 +48,7 @@ ArrayList<Alien> aliensArray = new ArrayList<>();
 ArrayList<Alien> newAliensArray = new ArrayList<>();
 color c = color(255, 10, 71);
 int inWormholeSeconds;
-//ExtraScoreCircle extraScore;
+
 
 void setup() {
   playerXCoordJoy = 0;
@@ -75,8 +76,6 @@ void draw() {
         playerRadius = 50;
         invincible = false;
       }
-      
-      //extraScore = new ExtraScoreCircle(random(1,width),random(1,height),40);
 
       // Resize image.
       bg.resize(1280, 0);
@@ -116,19 +115,10 @@ void draw() {
       readData();
     }
 
+    // Enter the wormhole.
     if (gameMode == 2) {
       asteroids.clear();
-      
-      if (inWormholeSeconds + 10 == passedSeconds) {
-        playerRadius = 50;
-        wormhole = null; // make current wormhole null. So that the user is not in an endless loop.
-        powerUp.setPosition();
-        gameMode = 0;
-        redraw();
-      } else {
-        // initialise and handle the wormhole.
-        gf.handleWormhole();
-      }
+      gf.handleWormhole();
     }
   } else {
     clear();
@@ -157,7 +147,7 @@ void initialiseGame() {
 void screenElements() {
   textSize(40);
   fill(255, 204, 0);
-  text("Score: "+(int)passedSeconds, 50, 80);
+  text("Score: "+(int) score, 50, 80);
   text("Lives: "+(int) lives, 1100, 80);
 
   if (holdingPowerUp) {

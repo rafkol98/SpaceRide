@@ -36,9 +36,16 @@ public class PowerUp {
    
     if (dist(plX, plY, xPos, yPos) <  distSensitivity + radius) {
       fill(100, 255, 100);
-      text("Got power up!", width/2, height/2);
-      holdingPowerUp = true;
-      holdingPowerType = powerType;
+      if (powerType != 4) {
+        text("Got power up!", width/2, height/2);
+        holdingPowerUp = true;
+        holdingPowerType = powerType;
+      } else {
+         text("+5 !", width/2, height/2);
+         score += 5;
+         gf.exitWormhole();
+      }
+      
     }
 
     switch(powerType) {

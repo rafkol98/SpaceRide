@@ -17,8 +17,9 @@ public class Alien
     
    if (dist(playerXCoordJoy, playerYCoordJoy, x, y) <  2 +20) {
       fill(255, 0,0);
-      text("My circles are touching!", width/2, height/2);
+      text("Attacked by an alien!", width/2, height/2);
       fill(255, 0, 0);
+      gf.exitWormhole();
     }
     
     fill(myColor);

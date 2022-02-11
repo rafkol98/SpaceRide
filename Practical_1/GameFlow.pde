@@ -3,6 +3,7 @@ class GameFlow {
   void randomAttacks() {
     // Every 600 frames (10 seconds) generate an attack.
     if (frameCount % 600 == 0) {
+      score++;
       initAsteroids((int) random(3, min(passedSeconds/4, 25)));
     }
 
@@ -104,5 +105,15 @@ class GameFlow {
     for (Alien alien : newAliensArray) {
       alien.walk();
     }
+  }
+  
+  /**
+   Exit the wormhole.
+   **/
+  void exitWormhole() {
+     playerRadius = 50;
+     wormhole = null; // make current wormhole null. So that the user is not in an endless loop.
+     powerUp.setPosition();
+     gameMode = 0;
   }
 }
