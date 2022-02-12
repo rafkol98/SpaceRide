@@ -102,14 +102,6 @@ void draw() {
       asteroids.clear();
       gf.handleWormhole();
     }
-
-    // This game mode pauses the game when the user presses both A and B simultaneously.
-    if (gameMode == 3) {
-      fill(255, 40, 40);
-      text("Game Paused! Press A to unpause", 10, 230);
-      rect(0, 240, width, 7);
-      readData();
-    }
   }
   // if player lost all three lives, give them the chance to play again.
   else {
@@ -179,7 +171,7 @@ void screenElements() {
   text("Score: "+(int) score, 50, 80);
   text("Lives: "+(int) lives, width - 150, 80);
   
-  activePowerUpIcon()
+  activePowerUpIcon();
 }
 
 /**
@@ -199,6 +191,7 @@ void deactivatePowerUp() {
   if (powerUpActivatedSeconds + 10 == passedSeconds) {
     playerRadius = 50;
     invincible = false;
+    showPowerUpIcon = false;
   }
 }
 
@@ -224,11 +217,6 @@ void readData() {
           redraw();
         }
       }
-
-      // Unpause game.
-      if (gameMode == 3) {
-        gameMode = 0;
-      }
     }
 
     // Restart game (if dead).
@@ -245,13 +233,6 @@ void readData() {
       // if the player is holding a power up and its of a specified type, then handle the power up accordingly.
       if (holdingPowerUp && holdingPowerType != 0) {
         gf.handlePowerUp();
-      }
-    }
-
-    // Pause the game.
-    if (inString.charAt(0) == 'L') {
-      if (gameMode != 3) {
-        gameMode = 3;
       }
     }
 

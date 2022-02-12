@@ -8,6 +8,7 @@ class GameFlow {
     if (frameCount % 600 == 0) {
       score++; // the score increases every 600 frames.
       initAsteroids((int) random(3, min(passedSeconds/4, 25)));
+      addBottomAsteroids((int) random(1,5));
     }
 
     // Every 1800 frames (30 seconds) generate a wormhole.
@@ -29,6 +30,12 @@ class GameFlow {
 
     for (int i = 0; i < num; i++) {
       asteroids.add(new Asteroid(random(width+200, width*2), random(0, 900), random(15, 60)));
+    }
+  }
+  
+  void addBottomAsteroids(int num) {
+    for (int i = 0; i < num; i++) {
+      asteroids.add(new Asteroid(random(width+200, width*2), random(700, 900), random(15, 60)));
     }
   }
 
