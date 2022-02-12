@@ -1,6 +1,8 @@
 public class PowerUp {
-  float xPos;
-  float yPos;
+  
+  // Initialise PowerUp variables.
+  float x;
+  float y;
   float radius = 50;
   color powerUpColor;
   float xSpeed;
@@ -8,46 +10,77 @@ public class PowerUp {
   int powerType;
   int distSensitivity = 20;
 
-  // Set new xPos and yPos out of the screen.
-  void setPosition() {
-    this.xPos = 15000;
-    this.yPos = 15000;
-  }
-
+  /**
+   Create a new power up instance passing in its type.
+   It can have four different types.
+   1 - Extra life.
+   2 - Shrink player's size.
+   3 - Invincibility.
+   4 - Extra score, this appears only if the player is in the wormhole.
+   **/
   PowerUp(int type) {
     // if its an extrascore - wormhole, then place xPos in the middle.
     if (type == 4) {
-      xPos = 100;
+      x = 100;
     } else {
-      xPos = 1580;
+      x = 1580;
     }
 
-    yPos = height / 2;
+    y = height / 2;
     xSpeed = random(-6, -1);
     ySpeed = random(-8, 8);
     powerType = type;
   }
 
+  /**
+   Bounce power up in the screen's borders.
+   **/
   void bounce() {
     // get player's x and y location. This is used to get the joystick's x and y if the user is in the wormhole.
     float plX = (powerType == 4) ? playerXCoordJoy : playerXCoord;
     float plY = (powerType == 4) ? playerYCoordJoy : playerYCoord;
-   
-    if (dist(plX, plY, xPos, yPos) <  distSensitivity + radius) {
-      fill(100, 255, 100);
+
+    // if the player collides with the power up, then set appropriate flags and light up leds.
+    if (dist(plX, plY, x, y) <  distSensitivity + radius) {
+      fill(255);
       if (powerType != 4) {
         text("Got power up!", width/2, height/2);
         holdingPowerUp = true;
         holdingPowerType = powerType;
         lightUpAppropriateLed();
-      } else {
-         text("+5 !", width/2, height/2);
-         score += 5;
-         gf.exitWormhole();
       }
-      
+      // if the user is in the wormhole, then when they get the power they get 5 points
+      // and then exit the wormhole.
+      else {
+        text("+5 !", width/2, height/2);
+        score += 5;
+        gf.exitWormhole();
+      }
     }
 
+    displayPowerUp(); // display power up.
+
+    int bottomBorder = 80;
+
+    // If the user is in the wormhole and chasing after the extra credits ball,
+    // then make the ball bounce on the left and right borders as well.
+    if (powerType == 4) {
+      bottomBorder = 0;
+      if (x < 0 || x > width) {
+        xSpeed *= -1;
+      }
+    }
+
+    // Make power up bounce on top and bottom borders.
+    if (y < 0 || y >= height - bottomBorder) {
+      ySpeed = -ySpeed;
+    }
+  }
+
+  /**
+   Display the power up, colouring it according to the power up type.
+   **/
+  void displayPowerUp() {
     switch(powerType) {
       // ExtraLife  = case 1.
     case 1:
@@ -68,40 +101,36 @@ public class PowerUp {
     }
 
     fill(powerUpColor);
-    ellipse(xPos, yPos, radius, radius);
-    xPos += xSpeed;
-    yPos += ySpeed;
-
-    int bottomBorder = 80;
-
-    if (powerType == 4) {
-      bottomBorder = 0;
-      if (xPos < 0 || xPos > width) {
-        xSpeed *= -1;
-      }
-    }
-
-    // Make power up bounce on top and bottom borders.
-    if (yPos < 0 || yPos >= height - bottomBorder) {
-      ySpeed = -ySpeed;
-    }
+    ellipse(x, y, radius, radius);
+    x += xSpeed;
+    y += ySpeed;
   }
-  
+
+  /**
+   Light up appropriate LEDs, depending on which power they got.
+   **/
   void lightUpAppropriateLed() {
     switch(powerType) {
       // ExtraLife  power up GREEN led.
     case 1:
-       myPort.write("G");
-       break;
-       // Shrink power up RED led.
+      myPort.write("G");
+      break;
+      // Shrink power up RED led.
     case 2:
       myPort.write("R");
       break;
       // Invincible power up BLUE led.
     case 3:
-       myPort.write("B");
+      myPort.write("B");
       break;
     }
-   
+  }
+
+  /**
+   Set new x and y positions out of the screen. Used when exiting the wormhole.
+   **/
+  void setPositionOutOfScreen() {
+    this.x = 15000;
+    this.y = 15000;
   }
 }

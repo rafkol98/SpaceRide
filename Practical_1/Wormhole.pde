@@ -1,38 +1,48 @@
 class Wormhole {
-  float xPos;
-  float yPos;
   
+  // Initialise Wormhole variables.
+  float x;
+  float y;
   float radius;
 
-  Wormhole(float xVal, float yVal, float rVal) {
-    xPos = xVal;
-    yPos = yVal;
-    radius= rVal;
-  } 
-  
-  void move(float speed){
-     if (dist(playerXCoord, playerYCoord, xPos, yPos) <  20 + radius) {
-      fill(100, 255, 100);
-      text("WORMHOLE!", width/4, height/4);
-      inWormholeSeconds = passedSeconds;
-      powerUp = new PowerUp(4);
+  /**
+  Create a new wormhole portal / ball.
+  Passing in its x, y coordinates and radius.
+  **/
+  Wormhole(float x, float y, float r) {
+    this.x = x;
+    this.y = y;
+    radius= r;
+  }
+
+  /**
+  Make the wormhole portal/ball to move left.
+  **/
+  void move(float speed) {
+    // if the player and the wormhole collided, set the game mode to 2, which will transfer the player
+    // to the new smaller game.
+    if (dist(playerXCoord, playerYCoord, x, y) <  20 + radius) {
+      powerUp = new PowerUp(4); //create a new extra score power up.
       gameMode = 2;
     }
-    
-    xPos -= speed;
+
+    x -= speed; // move to the left.
   }
-  
-  void display(){
+
+  /**
+  Display the wormhole portal / ball.
+  **/
+  void display() {
     fill(80, 80, 80);
     stroke(10);
-    circle(xPos, yPos, radius+40);
-    
+    circle(x, y, radius+40);
+
     fill(60, 60, 60);
     stroke(10);
-    circle(xPos, yPos, radius+20);
-    
+    circle(x, y, radius+20);
+
     fill(20, 20, 20);
     stroke(10);
-    circle(xPos, yPos, radius);
+    circle(x, y, radius);
   }
 }

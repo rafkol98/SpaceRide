@@ -1,22 +1,32 @@
-class Asteroid { 
-  float xPos;
-  float yPos;
+class Asteroid {
   
+  // Initialise Asteroid variables.
+  float x;
+  float y;
   float radius;
 
-  Asteroid(float xVal, float yVal, float rVal){
-    xPos = xVal;
-    yPos = yVal;
-    radius= rVal;
-  } 
-  
-  void move(float speed){
-    xPos -= speed;
+  /**
+   Create a new asteroid. Passing in the x, y coordinates and the radius.
+   **/
+  Asteroid(float x, float y, float r) {
+    this.x = x;
+    this.y = y;
+    radius= r;
   }
-  
-  void display(){
+
+  /**
+   Move asteroid to the left.
+   **/
+  void move(float speed) {
+    x -= speed;
+  }
+
+  /**
+   Display asteroid.
+   **/
+  void display() {
     fill(150, 102, 20);
     stroke(10);
-    circle(xPos, yPos, radius);
+    circle(x, y, radius);
   }
 }

@@ -1,46 +1,55 @@
 public class Player {
-  float xPos = 80; // Fixed position on X
-  float yPos = 0;
+  
+  // Initialise Player variables.
+  float x = 80; // Fixed position on X (except within the wormhole).
+  float y = 0;
   color playerColor =  color(255, 10, 71);
-  
   int radius;
-  
+
+  /**
+   Create a new player. Passing in the y coordinate and the player's radius.
+   **/
   Player(float y, int r) {
-    yPos = y;
+    this.y = y;
     radius = r;
-    drawPlayer();
+    display();
   }
-  
+
+  /**
+   Create a new player. Passing in the x and y coordinates of the Joystick and the player's radius.
+   **/
   Player(float x, float y, int r) {
-    xPos = x;
-    yPos = y;
+    this.x = x;
+    this.y = y;
     radius = r;
-    drawPlayer();
+    display();
   }
-  
-  
-  void drawPlayer() {
+
+  /**
+   Draw player in the screen.
+   **/
+  void display() {
     fill(playerColor);
     stroke(10);
-    circle(xPos, yPos, radius);
+    circle(x, y, radius);
   }
-  
+
+  /**
+   Adjust player's speed.
+   **/
   void playerSpeed() {
-    
     // If player tries to go out of bounds throw them back in.
     if (playerYCoord < 5) {
       PVector negJump = new PVector(0, -0.8);
       velocity.sub(negJump);
     }
-    
+
+    // If user pressed A then make the player jump.
     if (aPressed) {
       if (playerYCoord > 100) {
         velocity.add(jump);
       }
     }
-      aPressed = false;
+    aPressed = false; // Reset the aPressed flag.
   }
-  
-  
-  
 }
