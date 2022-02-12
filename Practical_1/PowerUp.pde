@@ -27,7 +27,7 @@ public class PowerUp {
     }
 
     y = height / 2;
-    xSpeed = random(-6, -1);
+    xSpeed = random(-6, -2);
     ySpeed = random(-8, 8);
     powerType = type;
   }

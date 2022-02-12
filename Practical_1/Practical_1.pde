@@ -56,9 +56,9 @@ void setup() {
   myPort = new Serial(this, Serial.list()[5], 115200);
   initialiseGame();
   gf.initAsteroids(5);
-  wormhole = new Wormhole(random(1280, 2000), random(0, 800), 80);
+  wormhole = new Wormhole(random(1280, 2000), random(0, 800), 20);
   savedTime = millis();
-  powerUp = new PowerUp(2);
+  powerUp = new PowerUp(1);
 
   // Aliens.
   for (int i=0; i<8; i++) {
@@ -178,7 +178,7 @@ void screenElements() {
 Show the power up icon to indicate that the user has an active power up.
 **/
 void activePowerUpIcon() {
-  if (showPowerUpIcon) {
+  if (showPowerUpIcon && holdingPowerType != 1) {
     powerUpImg.resize(50, 0);
     image(powerUpImg, width - 250, 40);
   }
