@@ -39,6 +39,7 @@ public class PowerUp {
         text("Got power up!", width/2, height/2);
         holdingPowerUp = true;
         holdingPowerType = powerType;
+        lightUpAppropriateLed();
       } else {
          text("+5 !", width/2, height/2);
          score += 5;
@@ -84,5 +85,23 @@ public class PowerUp {
     if (yPos < 0 || yPos >= height - bottomBorder) {
       ySpeed = -ySpeed;
     }
+  }
+  
+  void lightUpAppropriateLed() {
+    switch(powerType) {
+      // ExtraLife  power up GREEN led.
+    case 1:
+       myPort.write("G");
+       break;
+       // Shrink power up RED led.
+    case 2:
+      myPort.write("R");
+      break;
+      // Invincible power up BLUE led.
+    case 3:
+       myPort.write("B");
+      break;
+    }
+   
   }
 }

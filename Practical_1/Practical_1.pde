@@ -60,7 +60,7 @@ void setup() {
   gf.initAsteroids(5);
   wormhole = new Wormhole(random(1280, 2000), random(0, 800), 80);
   savedTime = millis();
-  powerUp = new PowerUp(2);
+  powerUp = new PowerUp(1);
 
   // Aliens.
   for (int i=0; i<8; i++) {

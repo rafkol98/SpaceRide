@@ -7,11 +7,12 @@ class GameFlow {
       initAsteroids((int) random(3, min(passedSeconds/4, 25)));
     }
 
-    if (frameCount % 800 == 0) {
+    // Every 1800 frames (30 seconds) generate a wormhole.
+    if (frameCount % 1800 == 0) {
       wormhole = new Wormhole(random(1280, 2000), random(0, 800), 20);
     }
 
-    // Every 1800 frames (40 seconds) generate a power up.
+    // Every 2400 frames (40 seconds) generate a power up.
     if (frameCount % 2400 == 0) {
       powerUp = new PowerUp((int) random(1, 4));
     }
@@ -65,11 +66,11 @@ class GameFlow {
       break;
     case 3:
       invincible = true;
-      //powerUpColor = color(51, 252, 255);
       break;
     }
     powerUpActivatedSeconds = passedSeconds;
     holdingPowerUp = false;
+    myPort.write("N"); // turn off led.
   }
 
   /**
