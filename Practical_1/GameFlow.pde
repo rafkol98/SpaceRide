@@ -1,9 +1,10 @@
+// Author: 210017984
 class GameFlow {
 
   /**
    Generate random attacks, every few frames.
    **/
-  void randomAttacks() {
+  void generateRandomElems() {
     // Every 600 frames (10 seconds) generate an asteroid attack.
     if (frameCount % 600 == 0) {
       score++; // the score increases every 600 frames.
@@ -12,12 +13,12 @@ class GameFlow {
     }
 
     // Every 1800 frames (30 seconds) generate a wormhole.
-    if (frameCount % 1400 == 0) {
+    if (frameCount % 1800 == 0) {
       wormhole = new Wormhole(random(1280, 2000), random(0, 800), 20);
     }
 
     // Every 1200 frames (20 seconds) generate a power up.
-    if (frameCount % 1000 == 0) {
+    if (frameCount % 1200 == 0) {
       powerUp = new PowerUp((int) random(1, 4));
     }
   }
@@ -89,17 +90,17 @@ class GameFlow {
    **/
   void handleWormhole() {
     background(30, 30, 30);
-    aliensWalk();
+    aliensExpand();
 
-    powerUp.bounce();
+    powerUp.move();
 
     player = new Player(playerXCoordJoy, playerYCoordJoy, 50); // create a player using the x and y coordinates from the joystick.
   }
 
   /**
-   Make aliens walk through the screen.
+   Make alien colonies expand (multiply).
    **/
-  void aliensWalk() {
+  void aliensExpand() {
     // Make aliens walk through the screen.
     for (Alien alien : aliensArray) {
       newAliensArray.add(new Alien(alien.x+2, alien.y+2));

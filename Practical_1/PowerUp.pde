@@ -1,3 +1,4 @@
+// Author: 210017984
 public class PowerUp {
   
   // Initialise PowerUp variables.
@@ -35,7 +36,7 @@ public class PowerUp {
   /**
    Bounce power up in the screen's borders.
    **/
-  void bounce() {
+  void move() {
     // get player's x and y location. This is used to get the joystick's x and y if the user is in the wormhole.
     float plX = (powerType == 4) ? playerXCoordJoy : playerXCoord;
     float plY = (powerType == 4) ? playerYCoordJoy : playerYCoord;
@@ -101,7 +102,7 @@ public class PowerUp {
     }
 
     fill(powerUpColor);
-    ellipse(x, y, radius, radius);
+    circle(x, y, radius);
     x += xSpeed;
     y += ySpeed;
   }
@@ -111,17 +112,17 @@ public class PowerUp {
    **/
   void lightUpAppropriateLed() {
     switch(powerType) {
-      // ExtraLife  power up GREEN led.
+      // ExtraLife  power up GREEN led. 
     case 1:
-      myPort.write("G");
+      myPort.write("G"); // Write to the port G.
       break;
       // Shrink power up RED led.
     case 2:
-      myPort.write("R");
+      myPort.write("R"); // Write to the port R.
       break;
       // Invincible power up BLUE led.
     case 3:
-      myPort.write("B");
+      myPort.write("B"); // Write to the port B.
       break;
     }
   }

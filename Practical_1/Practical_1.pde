@@ -1,5 +1,7 @@
 import processing.serial.*;
 
+// Author: 210017984
+
 PImage bg, powerUpImg;
 
 GameFlow gf = new GameFlow();
@@ -41,6 +43,7 @@ int savedTime;
 int passedSeconds;
 int score;
 
+// Game mode, used to pause the game when player loses a life, or enter wormhole inner game.
 int gameMode = 0;
 
 // Wormhole.
@@ -69,7 +72,8 @@ void setup() {
 
 void draw() {
   passedSeconds = (millis() - savedTime)/1000;
-
+  
+  // if the player has more than 0 lives, then play game.
   if (lives > 0) {
     // Normal game mode, continue normal execution of game.
     if (gameMode == 0) {
@@ -119,12 +123,13 @@ void handlePlayerMovements() {
 
   position.add(velocity);
   velocity.add(gravity);
-
+  
+  // if they are at the floor make their velocity 0 to stop moving.
   if (position.y > 800) {
     velocity.y = 0;
   }
-
-  playerYCoord = position.y;
+  
+  playerYCoord = position.y; // assign the y coordinate of the position vector to playerYCoord
   player = new Player(playerYCoord, playerRadius);
 }
 
@@ -138,9 +143,9 @@ void objectsMovements() {
 
   gf.moveWormhole();
 
-  gf.randomAttacks();
+  gf.generateRandomElems();
 
-  powerUp.bounce();
+  powerUp.move();
 }
 
 /**
@@ -239,7 +244,7 @@ void serialEvent(Serial p) {
         playerYCoordJoy = (int) map(Integer.parseInt(inString.substring(1, sepPos)), 0, 1023, 0, height);
       }
       catch(Exception e) {
-        println("caught"+ playerYCoordJoy);
+        println("caught X:"+ playerYCoordJoy);
       }
     }
 
@@ -250,7 +255,7 @@ void serialEvent(Serial p) {
         playerXCoordJoy = (int) map(Integer.parseInt(inString.substring(1, sepPos)), 0, 1023, 0, width);
       }
       catch(Exception e) {
-        println("caught"+playerXCoordJoy);
+        println("caught Y"+playerXCoordJoy);
       }
     }
   }

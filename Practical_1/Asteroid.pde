@@ -1,3 +1,4 @@
+// Author: 210017984
 class Asteroid {
   
   // Initialise Asteroid variables.
@@ -15,7 +16,7 @@ class Asteroid {
   }
 
   /**
-   Move asteroid to the left. Do collision check.
+   Move asteroid towards the player. Do collision check.
    **/
   void move(float speed) {
     // if the player collides with an asteroid and they are not invincible, then make the gameMode equal to 1 (which pauses game and deduces a life).
