@@ -12,12 +12,12 @@ class GameFlow {
     }
 
     // Every 1800 frames (30 seconds) generate a wormhole.
-    if (frameCount % 1800 == 0) {
+    if (frameCount % 1400 == 0) {
       wormhole = new Wormhole(random(1280, 2000), random(0, 800), 20);
     }
 
     // Every 1200 frames (20 seconds) generate a power up.
-    if (frameCount % 1200 == 0) {
+    if (frameCount % 1000 == 0) {
       powerUp = new PowerUp((int) random(1, 4));
     }
   }
@@ -44,24 +44,6 @@ class GameFlow {
    **/
   void moveAsteroids() {
     for (Asteroid asteroid : asteroids) {
-      // if the player collides with an asteroid and they are not invincible, then make the gameMode equal to 1 (which pauses game and deduces a life).
-      if ((dist(playerXCoord, playerYCoord, asteroid.x, asteroid.y) <  (playerRadius/10) + asteroid.radius) && !invincible) {
-        fill(255);
-        text("Collided!", width/2, height/2);
-        fill(255, 0, 0);
-        gameMode = 1;
-      }
-      // if the player is touching an asteroid, but he is invinvible, show him a message!
-      else if ((dist(playerXCoord, playerYCoord, asteroid.x, asteroid.y) < (playerRadius/10) + asteroid.radius) && invincible) {
-        fill(0, 240, 20);
-        text("Invincibility saved you a life!", width/2, height/2);
-      }
-
-      // if asteroid's y position is bigger than screen's height move them down.
-      if (asteroid.y > height) {
-        asteroid.y = -10;
-      }
-
       // Move asteroid and display.
       asteroid.move(random(1, 10));
       asteroid.display();
