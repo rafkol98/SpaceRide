@@ -15,7 +15,7 @@ class Asteroid {
   }
 
   /**
-   Move asteroid to the left.
+   Move asteroid to the left. Do collision check.
    **/
   void move(float speed) {
     // if the player collides with an asteroid and they are not invincible, then make the gameMode equal to 1 (which pauses game and deduces a life).
@@ -35,7 +35,8 @@ class Asteroid {
       if (y > height) {
         y = -10;
       }
-    x -= speed;
+      
+    x -= speed; // move asteroid to the left.
   }
 
   /**

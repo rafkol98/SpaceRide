@@ -93,8 +93,6 @@ class GameFlow {
 
     powerUp.bounce();
 
-    readData(); // read data from controller.
-
     player = new Player(playerXCoordJoy, playerYCoordJoy, 50); // create a player using the x and y coordinates from the joystick.
   }
 

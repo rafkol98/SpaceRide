@@ -94,7 +94,6 @@ void draw() {
       rect(0, 240, width, 7);
 
       asteroids.clear(); // clear all the asteroids that made the player crash.
-      readData();
     }
 
     // This game mode is activated when the player enters the wormhole.
@@ -109,7 +108,6 @@ void draw() {
     fill(255, 0, 0);
     text("You Lost, Click B to play again", 10, 230);
     rect(0, 240, width, 7);
-    readData();
   }
 }
 
@@ -118,7 +116,6 @@ void draw() {
  Handle the player's movements, gravity and velocity.
  **/
 void handlePlayerMovements() {
-  readData();
 
   position.add(velocity);
   velocity.add(gravity);
@@ -199,9 +196,8 @@ void deactivatePowerUp() {
  Read data from the port. The serial event is not used because data is fed up too frequently creating problems with the game's
  performance and smoothness.
  **/
-void readData() {
-  //println("called");
-  inString =  myPort.readStringUntil('\n');  // read reading sent from microbit, until new line appears.
+void serialEvent(Serial p) { 
+  inString =  p.readStringUntil('\n');  // read reading sent from microbit, until new line appears.
 
   if (inString != null) {
 
