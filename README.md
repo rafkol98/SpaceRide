@@ -1,0 +1,5 @@
+# SpaceRide
+Space Rider is a space-themed obstacle avoidance game. The player has three lives, and their goal is to stay alive for as long as possible (further distance). The game was developed using Processing and is primarily controlled by two BBC micro:bits, one functioning as a receiver and the other as a sender. The obstacles moving towards the player are asteroids and their number increases as the player advance through the game. Power-ups emerge at random and provide the user with extraordinary skills for 10 seconds, such as invincibility, shrinking in size, and extra life. Another intriguing feature is a portal that transports the player to another dimension in which they must use the joystick to capture a bouncing ball that gives them extra points while avoiding encroaching alien colonies. My objective was to develop a fun game that has unique engaging features and allows the user to interact creatively but meaningfully.
+
+**A demo of the game is available here:**
+https://drive.google.com/file/d/1hHEYAVBnm_W_qggSoBnZZIs6Jl0noVAh/view?usp=sharing
